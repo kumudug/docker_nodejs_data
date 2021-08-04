@@ -38,6 +38,19 @@
          await fs.copyFile(tempFilePath, finalFilePath);
          await fs.unlink(tempFilePath);
          ```
+      - Now 
+         - Stop the container - `docker stop feedback-app`
+         - Remove the image - `docker rmi nodedata2:volumes`
+         - Rebuild the image - `docker build . -t nodedata2:volumes`
+         - Run a container from this image again - `docker run -p 3000:80 -d --name feedback-app --rm nodedata2:volumes`
+      - Enter feedback "Example: test"
+         - go to `http://localhost:3000/feedback/test.txt` and you can see feedback
+         - Stop the container - `docker stop feedback-app` (This will delete the container as we used the --rm)
+         - Run a container from this image again - `docker run -p 3000:80 -d --name feedback-app --rm nodedata2:volumes`
+         - go to `http://localhost:3000/feedback/test.txt` and you can not see it, thus the volume was not shared
+         - This is because anonymous volumes are removed when the container r is removed. 
+            - If you didn't use the --rm option we can stop start the container and keep the data in tact.
+            - In other words anonymous volumes live for the life of the container.
       
 
 

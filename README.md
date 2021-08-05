@@ -82,6 +82,20 @@
    - Stop the container - `docker stop feedback-app` (This will delete the container as we used the --rm)
 * Creating a container with a bind mount
    - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
+   - If we do this then the following commands in docker file become useless
+   ```
+   WORKDIR /app
+
+   COPY package.json .
+
+   RUN npm install
+   ```
+   - The npm install will be overridden by the bind mount we are specifying for the `/app` folder
+   - To work around this we can add an anonymous volume for the `node_modules` folder
+      `VOLUME [ "/app/node_modules" ]` - Instead of adding to Docker file this can be done in command line during container run `-v /app/node_modules`
+   - Stop the container and recreate as we changed the Docker file
+      - `docker stop feedback-app` (This will delete the container as we used the --rm)
+      - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
 
 
       

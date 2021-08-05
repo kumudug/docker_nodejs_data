@@ -59,12 +59,29 @@
    - Remove the image and rebuild
       - `docker rmi nodedata2:volumes`
       - `docker build . -t nodedata2:volumes`
+   - Run a container with the new image including the named volume
+      - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback nodedata2:volumes`
+   - Test
+      - Go to `http://localhost:3000/` and enter feedback with title "test"
+      - Go to `http://localhost:3000/feedback/test.txt` to test
+      - Stop the container. This will remove is as we specified `--rm`
+         - `docker stop feedback-app`
+      - Run again with the same named volume
+         - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback nodedata2:volumes`
+      - Go to `http://localhost:3000/feedback/test.txt` to test
+         - Last entered feedback is present
+      - Start a new container from the same image with a different name and port. 
+         - `docker run -p 3001:80 -d --name feedback-app2 --rm -v feedback:/app/feedback nodedata2:volumes`
+         - Now you can save and access feedback across these 2 images
+
 
 ## Bind Mounts
 
 * Trying to put source code into a bind mount so that we can do changes without rebuilding the image
    - Bind mounts are not set inside the docker file because it's specific to a container you run and not to an image
    - Stop the container - `docker stop feedback-app` (This will delete the container as we used the --rm)
+* Creating a container with a bind mount
+   - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
 
 
       

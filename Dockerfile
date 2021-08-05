@@ -10,6 +10,6 @@ COPY . .
 
 EXPOSE 80
 
-VOLUME ["/app/feedback"]
+# VOLUME ["/app/feedback"] - Removed to use a named volume
 
 CMD [ "node", "server.js" ]

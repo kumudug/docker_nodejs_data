@@ -51,6 +51,22 @@
          - This is because anonymous volumes are removed when the container r is removed. 
             - If you didn't use the --rm option we can stop start the container and keep the data in tact.
             - In other words anonymous volumes live for the life of the container.
+
+## Named Volumes
+
+* Can't be specified in the docker file. Needs to be specified when running the container from the image.
+   - Removed the anonymous volume `VOLUME ["/app/feedback"]` from the Docker file to use a named volume instead.
+   - Remove the image and rebuild
+      - `docker rmi nodedata2:volumes`
+      - `docker build . -t nodedata2:volumes`
+
+## Bind Mounts
+
+* Trying to put source code into a bind mount so that we can do changes without rebuilding the image
+   - Bind mounts are not set inside the docker file because it's specific to a container you run and not to an image
+   - Stop the container - `docker stop feedback-app` (This will delete the container as we used the --rm)
+
+
       
 
 

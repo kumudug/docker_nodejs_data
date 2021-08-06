@@ -14,5 +14,7 @@ EXPOSE 80
 
 # Anonymous volume for the node_modules folder
 VOLUME [ "/app/node_modules" ]
+# Anonymous volume for the temp folder
+VOLUME [ "/app/temp" ]
 
 CMD [ "npm", "start" ]

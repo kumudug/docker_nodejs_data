@@ -115,6 +115,18 @@
       - `docker build . -t nodedata2:volumes`
       - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
 
+### Making the bind mount read only
+
+* We can/should make the bind mount directed to the source read only. We don't need docker to write to it.
+   - Before we do this we need to make sure all other referenced writable folders are mapped. Thus create a anonymous volume for the temp folder
+   ```
+   VOLUME [ "/app/temp" ]
+   ```
+   - To make a bind mount read only we add `:ro` after the folder. Lets recreate this to add the bind mount as read only. (As we changed the docker file)
+      - `docker stop feedback-app`
+      - `docker rmi nodedata2:volumes`
+      - `docker build . -t nodedata2:volumes`
+      - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
 
 
 

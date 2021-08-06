@@ -15,4 +15,4 @@ EXPOSE 80
 # Anonymous volume for the node_modules folder
 VOLUME [ "/app/node_modules" ]
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]

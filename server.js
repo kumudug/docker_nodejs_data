@@ -31,7 +31,7 @@ app.post('/create', async (req, res) => {
   const tempFilePath = path.join(__dirname, 'temp', adjTitle + '.txt');
   const finalFilePath = path.join(__dirname, 'feedback', adjTitle + '.txt');
 
-  console.log('Test serverjs changes...');
+  console.log('Test serverjs changes....');
 
   await fs.writeFile(tempFilePath, content);
   exists(finalFilePath, async (exists) => {

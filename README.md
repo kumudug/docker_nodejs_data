@@ -102,6 +102,10 @@
       - Start the container again
          - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
 * With these changes now code changes are reflected in the container as we do changes
+   - This works for everything except for the server.js file. Cause the node server is already started
+   - For server.js file changes we need to restart the container. At least we don't need to recreate the image. (If you didn't use --rm)
+      - `docker stop feedback-app`
+      - `docker start feedback-app`
 
 
       

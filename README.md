@@ -93,9 +93,15 @@
    - The npm install will be overridden by the bind mount we are specifying for the `/app` folder
    - To work around this we can add an anonymous volume for the `node_modules` folder
       `VOLUME [ "/app/node_modules" ]` - Instead of adding to Docker file this can be done in command line during container run `-v /app/node_modules`
+   - This works because when volume locations clash the longer internal path wins. So `node_modules` will be winning in the anonymous volume path
    - Stop the container and recreate as we changed the Docker file
       - `docker stop feedback-app` (This will delete the container as we used the --rm)
-      - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
+      - Remove the image and rebuild
+         - `docker rmi nodedata2:volumes`
+         - `docker build . -t nodedata2:volumes`
+      - Start the container again
+         - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v /home/kumudu/code_repoes/git/docker_nodejs_data2:/app nodedata2:volumes`
+* With these changes now code changes are reflected in the container as we do changes
 
 
       

@@ -8,7 +8,11 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 80
+# Set environment variable which can then be used in server.js
+# The default value 80 can be overriden during image creation in command line
+ENV PORT 80 
+
+EXPOSE $PORT
 
 # VOLUME ["/app/feedback"] - Removed to use a named volume
 

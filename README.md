@@ -1,4 +1,6 @@
-# Test data handling in docker 
+# Testing Docker 
+
+# Data Handling
 
 * To create a new image
    - `docker build . -t nodedata2:initial`
@@ -127,6 +129,27 @@
       - `docker rmi nodedata2:volumes`
       - `docker build . -t nodedata2:volumes`
       - `docker run -p 3000:80 -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
+
+# ARGuments and ENVironment Variables
+
+## ENVironment Variables
+
+* Specify an environment variable for the port so it can be overridden during container creation from the image.
+   - Set with a default value in Dockerfile
+      ```
+      ENV PORT 80 
+
+      EXPOSE $PORT
+      ```
+   - Use in server.js
+      ```
+      app.listen(process.env.PORT);
+      ```
+   - When creating image we can override in the command line
+      `docker run -p 3000:8080 -e PORT=8080 -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
+
+
+
 
 
 

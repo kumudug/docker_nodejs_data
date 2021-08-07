@@ -148,6 +148,15 @@
    - When creating image we can override in the command line
       `docker run -p 3000:8080 -e PORT=8080 -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
 
+* If needed you can specify your environment variables in a file as well
+   - Create a file (for example .env)
+      ```
+      PORT=8080
+      ```
+   - Use --env-file flag
+      `docker run -p 3000:8080 --env-file ./.env -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
+
+
 
 
 

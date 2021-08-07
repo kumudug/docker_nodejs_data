@@ -8,9 +8,12 @@ RUN npm install
 
 COPY . .
 
+# Set build time argument
+ARG DEFAULT_PORT=80
+
 # Set environment variable which can then be used in server.js
 # The default value 80 can be overriden during image creation in command line
-ENV PORT 80 
+ENV PORT $DEFAULT_PORT 
 
 EXPOSE $PORT
 

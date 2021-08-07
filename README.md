@@ -156,6 +156,23 @@
    - Use --env-file flag
       `docker run -p 3000:8080 --env-file ./.env -d --name feedback-app --rm -v feedback:/app/feedback -v $pwd:/app:ro nodedata2:volumes`
 
+## ARGuments
+
+* Can be used to set variables for image build time
+* Available only in Dockerfile. Not available as node arguments
+* Example use-case: Setting the default port differently for a development image
+
+   - Specify the argument in the Dockerfile
+      ```
+      ARG DEFAULT_PORT=80
+      ```
+   - Use when setting the environment variables default value
+      ```
+      ENV PORT $DEFAULT_PORT
+      ```
+   - Use to change the default value when building the image
+      `docker build . -t nodedata2:dev --build-arg DEFAULT_PORT=8080`
+
 
 
 
